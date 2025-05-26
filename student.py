@@ -66,21 +66,27 @@ class Student:
         """Generate a formatted summary report for the student."""
         self.check_honor_roll()
         avg = self.calculate_average()
-        return (
-            f"Student ID: {self.id}\n"
-            f"Name: {self.name}\n"
-            f"Grades Count: {len(self.grades)}\n"
-            f"Average Grade: {avg:.2f}\n"
-            f"Letter Grade: {self.letter_grade()}\n"
-            f"Pass/Fail: {'Passed' if self.is_passed() else 'Failed'}\n"
-            f"Honor Roll: {'Yes' if self.honor_roll else 'No'}"
-        )
+        letter = self.letter_grade()
+        status = 'Passed' if self.is_passed() else 'Failed'
+        honor = 'Yes' if self.honor_roll else 'No'
+
+        report_lines = [
+            '----- Student Summary -----',
+            f"{'ID':<15}: {self.id:0>5}",
+            f"{'Name':<15}: {self.name}",
+            f"{'Grades Count':<15}: {len(self.grades):0>2}",
+            f"{'Average Grade':<15}: {avg:0>6.2f}",
+            f"{'Letter Grade':<15}: {letter}",
+            f"{'Status':<15}: {status}",
+            f"{'Honor Roll':<15}: {honor}",
+            '----------------------------'
+        ]
+        return "".join(report_lines)
 
 
 def main() -> None:
     """Demonstrate the Student class functionality."""
     student = Student("S001", "Alice")
-    # Define grades with explicit type for Pyright/Pylance
     grades: list[float] = [95.0, 82.5, 77.0]
     for grade in grades:
         student.add_grade(grade)
