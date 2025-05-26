@@ -1,3 +1,10 @@
+"""
+Module for managing student records and grades.
+Provides functions to add grades, calculate averages, determine letter grades,
+pass/fail status, and honor roll eligibility.
+"""
+
+
 class Student:
     """Represents a student and their grades."""
 
@@ -17,7 +24,7 @@ class Student:
             grade_value = float(grade)
         except (ValueError, TypeError):
             raise ValueError("Grade must be a numeric value.") from None
-        if not (0 <= grade_value <= 100):
+        if not 0 <= grade_value <= 100:
             raise ValueError("Grade must be between 0 and 100.")
         self.grades.append(grade_value)
 
